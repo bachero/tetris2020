@@ -9,13 +9,32 @@ package tetris;
  *
  * @author 10197825
  */
-public class ScoreBoard extends javax.swing.JPanel {
+public class ScoreBoard extends javax.swing.JPanel implements ScoreBoardIncrementer {
 
+    private int score;
     /**
      * Creates new form ScoreBoard
      */
+    
+    
     public ScoreBoard() {
         initComponents();
+        score = 0;
+        incrementScore(0);
+    }
+    
+    public void incrementScore(int increment){
+            score += increment;
+            jLabel1.setText("" + score);
+    }
+    
+    public void resetScore(){
+        score = 0;
+        incrementScore(0);
+    }
+    
+    public int getScore(){
+        return score;
     }
 
     /**
@@ -38,7 +57,7 @@ public class ScoreBoard extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

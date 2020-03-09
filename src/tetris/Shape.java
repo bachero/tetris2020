@@ -34,6 +34,11 @@ public class Shape {
         setRandomShape();
 
     }
+    
+    public Shape(Tetrominoes shapeType){
+        this();
+        setShape(shapeType);
+    }
 
     public void setShape(Tetrominoes shapeType) {
         for (int i = 0; i < 4; i++) {
@@ -97,7 +102,7 @@ public class Shape {
     }
 
     public int maxY(){
-        int m = coords[0][0];
+        int m = coords[0][1];
         for (int i = 0; i < 4; i++) {
             m = Math.max(m, coords[i][1]);
         }
@@ -106,25 +111,20 @@ public class Shape {
     
 
     
-    public Shape rotateLeft(){
-      if (pieceShape == Tetrominoes.SquareShape) {
-
+    public Shape rotateShape() {
+        if (pieceShape == Tetrominoes.SquareShape){
             return this;
         }
-
-        var result = new Shape();
-        result.pieceShape = pieceShape;
-
-        for (int i = 0; i < 4; i++) {
-
-            result.setX(i, getY(i));
-            result.setY(i, -getX(i));
+        Shape rotatedShape = new Shape(pieceShape);
+        for (int point = 0; point < 4; point++) {
+            rotatedShape.setX(point, -getY(point));
+            rotatedShape.setY(point, getX(point));
         }
-
-        return result;
-        
-        
+        return rotatedShape;
     }
+        
+    
+    
     /*
     public Shape rotateRight(){
         
