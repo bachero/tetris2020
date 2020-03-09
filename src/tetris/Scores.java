@@ -42,12 +42,12 @@ public class Scores extends javax.swing.JDialog implements Serializable {
     
     public void registerRecordInAFile() throws IOException{
         ObjectOutputStream out = null;
-        FileInputStream inputStream = null
+        FileInputStream inputStream = null;
         ObjectInputStream input = null;
         
         try{
-            inputStream = new 
-            input = new ObjectInputStream();
+            inputStream = new FileInputStream(FILE_OBJECT);
+            input = new ObjectInputStream(inputStream);
             out = new ObjectOutputStream(new BufferedOutputStream
 					(new FileOutputStream(FILE_OBJECT)));
             
@@ -59,14 +59,14 @@ public class Scores extends javax.swing.JDialog implements Serializable {
             if(out != null){
                 out.close();
             
+            }    
         }
-        
     }
         
-    public void readRecordsInAFile() throws IOException{
+    /*public void readRecordsInAFile() throws IOException{
         
         
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
