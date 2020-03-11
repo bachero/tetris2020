@@ -5,10 +5,10 @@
         <group>
             <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/Player.java</file>
             <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/Tetris.java</file>
+            <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/PlayerDialog.java</file>
             <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/About.java</file>
-            <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/InitialDialog.java</file>
-            <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/Menu.java</file>
             <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/ScoreBoard.java</file>
+            <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/Scores.java</file>
             <file>file:/home/INFORMATICA/10197825/NetBeansProjects/Tetris/src/tetris/Board.java</file>
         </group>
     </open-files>

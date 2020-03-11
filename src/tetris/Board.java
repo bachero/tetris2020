@@ -212,7 +212,7 @@ public class Board extends JPanel {
         resumeScore = scoreboard.getScore();
         PlayerDialog i = new PlayerDialog(parent, true, scoreboard.getScore());
         i.setVisible(true);
-        Scores s = new Scores(parent, true, resumeScore, namePlayer);
+        Scores s = new Scores(parent, true, namePlayer);
         s.setVisible(true);
         startNewGame();
     }

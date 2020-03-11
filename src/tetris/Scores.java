@@ -6,25 +6,24 @@
 package tetris;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
  *
  * @author 10197825
  */
-public class Scores extends javax.swing.JDialog implements Serializable {
+public class Scores extends javax.swing.JDialog {
 
+    private Player player;
     private List<Player> list;
     private static final String FILE_OBJECT = "records.txt";
     /**
@@ -35,19 +34,28 @@ public class Scores extends javax.swing.JDialog implements Serializable {
         initComponents();
     }
     
-    public Scores(Tetris parent, boolean modal, int i, Player p) {
-        Player player = new Player(p.getPlayer(), i);
+    public Scores(Tetris parent, boolean modal, Player p) {
+        super(parent, modal);
+        initComponents();
+        this.player = player;
     }
     
+    public void checkNewRecord() {
+        try {
+            readRecordsInAFile();
+            sortList();
+            registerRecordInAFile();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     
     public void registerRecordInAFile() throws IOException{
+        
         ObjectOutputStream out = null;
-        FileInputStream inputStream = null;
-        ObjectInputStream input = null;
         
         try{
-            inputStream = new FileInputStream(FILE_OBJECT);
-            input = new ObjectInputStream(inputStream);
+            
             out = new ObjectOutputStream(new BufferedOutputStream
 					(new FileOutputStream(FILE_OBJECT)));
             
@@ -63,10 +71,42 @@ public class Scores extends javax.swing.JDialog implements Serializable {
         }
     }
         
-    /*public void readRecordsInAFile() throws IOException{
+    public void readRecordsInAFile() throws IOException{
+        
+        ObjectInputStream input = null;
+        FileInputStream inputStream = null;
+        
+        try{
+            inputStream = new FileInputStream(FILE_OBJECT);
+            input = new ObjectInputStream(inputStream);
+            
+            while(true){
+                Player player = (Player) input.readObject();
+                list.add(player);
+            }
+            
+        } catch (EOFException ex) {
+            
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }finally {
+            if(input != null){
+                input.close();
+            
+            }    
+        }
+    }
+    
+    public void sortList(){
         
         
-    }*/
+        Collections.sort(list);
+        
+        
+        
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

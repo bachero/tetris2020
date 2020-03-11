@@ -18,6 +18,7 @@ public class PlayerDialog extends javax.swing.JDialog {
      * Creates new form NewJDialog
      */
     private Player player;
+    private Tetris parent;
     
     public PlayerDialog(Tetris parent, boolean modal, int i) {
         super(parent, modal);
@@ -27,6 +28,7 @@ public class PlayerDialog extends javax.swing.JDialog {
         jLabel2.setText("" + i);
         player = new Player("", i);
         parent.getBoard().renamePlayer(player);
+        this.parent = parent;
     }
 
     private PlayerDialog(JFrame jFrame, boolean b) {
@@ -118,7 +120,7 @@ public class PlayerDialog extends javax.swing.JDialog {
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
         player = new Player(textField1.getText());
-        
+        Scores scores = new Scores(parent, true, player);
     }//GEN-LAST:event_button1ActionPerformed
 
     /**

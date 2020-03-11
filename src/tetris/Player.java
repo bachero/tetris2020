@@ -5,13 +5,14 @@
  */
 package tetris;
 
+import java.io.Serializable;
 import javax.naming.NameParser;
 
 /**
  *
  * @author 10197825
  */
-public class Player implements Comparable <Player>{
+public class Player implements Comparable <Player>, Serializable {
     
     private String namePlayer;
     private int score;
