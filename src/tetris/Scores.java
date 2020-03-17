@@ -5,6 +5,7 @@
  */
 package tetris;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.EOFException;
 import java.io.FileInputStream;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +27,7 @@ public class Scores extends javax.swing.JDialog {
 
     private Player player;
     private List<Player> list;
-    private static final String FILE_OBJECT = "records.txt";
+    private static final String FILE_OBJECT = "records.xml";
     /**
      * Creates new form Scores
      */
@@ -38,6 +40,20 @@ public class Scores extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.player = player;
+        list = new ArrayList<Player>();
+        execut();
+    }
+    
+    public void execut(){
+        checkNewRecord();
+        writeLabels();
+    }
+    
+    public void writeLabels(){
+        
+        for(Player p:list){
+            jLabel2.setText("" + jLabel2.getText() + p);
+        }
     }
     
     public void checkNewRecord() {
@@ -74,15 +90,14 @@ public class Scores extends javax.swing.JDialog {
     public void readRecordsInAFile() throws IOException{
         
         ObjectInputStream input = null;
-        FileInputStream inputStream = null;
         
         try{
-            inputStream = new FileInputStream(FILE_OBJECT);
-            input = new ObjectInputStream(inputStream);
+            input = new ObjectInputStream(new BufferedInputStream
+            (new FileInputStream(FILE_OBJECT)));
             
             while(true){
-                Player player = (Player) input.readObject();
-                list.add(player);
+                Player p = (Player) input.readObject();
+                list.add(p);
             }
             
         } catch (EOFException ex) {
@@ -99,8 +114,11 @@ public class Scores extends javax.swing.JDialog {
     
     public void sortList(){
         
-        
+        list.add(player);
         Collections.sort(list);
+        if(list.size()>5){
+            list.remove(list.size());
+        }
         
         
         
@@ -119,47 +137,32 @@ public class Scores extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("RESUME SCORES");
 
         jLabel2.setText("jLabel2");
-
-        jLabel3.setText("jLabel3");
-
-        jLabel4.setText("jLabel4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addGap(173, 173, 173))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3)
-                .addGap(41, 41, 41)
-                .addComponent(jLabel4)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -210,8 +213,6 @@ public class Scores extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
     
